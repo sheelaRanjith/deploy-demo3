@@ -18,7 +18,7 @@ mongoose
 // User model
 const User = require("./models/userModels");
 
-// Register API (POST)
+// Register API
 app.post("/api/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -28,7 +28,7 @@ app.post("/api/register", async (req, res) => {
     const newUser = new User({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     await newUser.save();
@@ -39,7 +39,7 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
-// Get users API (GET)
+// Get users API
 app.get("/api/users", async (req, res) => {
   try {
     const users = await User.find();
@@ -49,6 +49,12 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
+// Root route
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully");
+});
+
+// Start server
 app.listen(process.env.PORT, () =>
   console.log(`Server running on port ${process.env.PORT}`)
 );
